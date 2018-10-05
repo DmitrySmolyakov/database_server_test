@@ -17,7 +17,8 @@ public func configure(
     services.register(middlewares)
     
     var databases = DatabasesConfig()
-    let config = MySQLDatabaseConfig(hostname: "localhost", username: "root", password: "", database: "chatter", transport: MySQLTransportConfig.unverifiedTLS)
+    let config = MySQLDatabaseConfig(database: "clients01")
+//    let config = MySQLDatabaseConfig(hostname: "localhost", username: "root", password: "", database: "chatter", transport: MySQLTransportConfig.unverifiedTLS)
     
     databases.add(database: MySQLDatabase(config: config), as: .mysql)
     services.register(databases)

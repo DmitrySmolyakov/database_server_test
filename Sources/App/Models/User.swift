@@ -2,7 +2,7 @@ import Vapor
 import FluentMySQL
 
 final class User: Content {
-    static let entity = "users"
+    static let entity = "clients01"
     
     var username: String?
     var firstname: String
