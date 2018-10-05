@@ -18,13 +18,9 @@ public func configure(
     
     var databases = DatabasesConfig()
     let database = Environment.get("DATABASE_DB") ?? "vapor"
-    print("database: \(database)")
     let hostname = Environment.get("DATABASE_HOSTNAME") ?? "localhost"
-    print("hostname: \(database)")
     let username = Environment.get("DATABASE_USER") ?? "vapor"
-    print("username: \(database)")
     let password = Environment.get("DATABASE_PASSWORD") ?? "password"
-    print("password: \(database)")
     let config = MySQLDatabaseConfig(hostname: hostname, username: username, password: password, database: database)
 //    let config = MySQLDatabaseConfig(hostname: "localhost", username: "root", password: "", database: "chatter", transport: MySQLTransportConfig.unverifiedTLS)
     databases.add(database: MySQLDatabase(config: config), as: .mysql)
