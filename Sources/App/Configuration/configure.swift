@@ -17,17 +17,18 @@ public func configure(
     services.register(middlewares)
     
     var databases = DatabasesConfig()
-    let database = Environment.get("DATABASE_DB") ?? "vapor"
-    let hostname = Environment.get("DATABASE_HOSTNAME") ?? "localhost"
-    let username = Environment.get("DATABASE_USER") ?? "vapor"
-    let password = Environment.get("DATABASE_PASSWORD") ?? "password"
-    let config = MySQLDatabaseConfig(hostname: hostname, username: username, password: password, database: database)
-//    let config = MySQLDatabaseConfig(hostname: "localhost", username: "root", password: "", database: "chatter", transport: MySQLTransportConfig.unverifiedTLS)
+//    let database = Environment.get("DATABASE_DB") ?? "vapor"
+//    let hostname = Environment.get("DATABASE_HOSTNAME") ?? "localhost"
+//    let username = Environment.get("DATABASE_USER") ?? "vapor"
+//    let password = Environment.get("DATABASE_PASSWORD") ?? "password"
+//    let config = MySQLDatabaseConfig(hostname: hostname, username: username, password: password, database: database)
+    let config = MySQLDatabaseConfig(hostname: "localhost", username: "root", password: "", database: "chatter", transport: MySQLTransportConfig.unverifiedTLS)
     databases.add(database: MySQLDatabase(config: config), as: .mysql)
     services.register(databases)
     
     var migrations = MigrationConfig()
     migrations.add(model: User.self, database: .mysql)
+    migrations.add(model: UserConnection.self, database: .mysql)
     services.register(migrations)
     
     var commands = CommandConfig.default()

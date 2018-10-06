@@ -4,7 +4,8 @@ import FluentMySQL
 final class User: Content {
     static let entity = "users"
     
-    var username: String?
+    var id: UUID?
+    var username: String
     var firstname: String
     var lastname: String
     var email: String
@@ -19,13 +20,14 @@ final class User: Content {
     }
 }
 
-extension User: Model {
-    typealias Database = MySQLDatabase
-    
-    static var idKey: WritableKeyPath<User, String?> {
-        return \.username
+extension User: MySQLUUIDModel {}
+extension User: Migration {
+    public static func prepare(on connection: MySQLConnection) -> Future<Void> {
+        return Database.create(self, on: connection) { builder in
+            try addProperties(to: builder)
+            builder.unique(on: \.username)
+            builder.unique(on: \.email)
+        }
     }
 }
-
-extension User: Migration {}
 extension User: Parameter {}
